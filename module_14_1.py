@@ -17,9 +17,19 @@ for i in range(1, 11):
     cursor.execute("INSERT INTO Users (id, username, email, age, balance) VALUES (?, ?, ?, ?, ?)",
                    (i, f"User{i}", f"example{i}@gmail.com", i*10, 1000))
 
-cursor.execute("UPDATE Users SET BALANCE = ? WHERE id % 2 = 0", (500,))
+cursor.execute("UPDATE Users SET BALANCE = ? WHERE id % 2 != 0", (500,))
 
-cursor.execute('DELETE FROM Users WHERE id % 3 = 1')
+a = 3
+for i in range(1, 11):
+    if a == 3:
+        cursor.execute(f'DELETE FROM USERS WHERE id == {i}')
+    a+=1
+    if a > 3:
+        a = 1
+
+
+
+#cursor.execute('DELETE FROM Users WHERE id % 3 = 1')
 
 cursor.execute('SELECT username, email, age, balance FROM Users WHERE age != 60')
 results = cursor.fetchall()
